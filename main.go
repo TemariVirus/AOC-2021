@@ -7,13 +7,16 @@ import (
 )
 
 func main() {
-	content, err := os.ReadFile("4.txt")
+	input := string(unwrap(os.ReadFile("07.txt")))
+
+	start := time.Now()
+	fmt.Println(solution_7_2(input))
+	fmt.Println("Time taken:", time.Since(start))
+}
+
+func unwrap[T any](value T, err error) T {
 	if err != nil {
 		panic(err)
 	}
-	input := string(content)
-
-	start := time.Now()
-	fmt.Println(solution_4_2(input))
-	fmt.Println("Time taken:", time.Since(start))
+	return value
 }
