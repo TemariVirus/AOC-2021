@@ -25,3 +25,12 @@ func count[T any](arr []T, f func(T) bool) int {
 	}
 	return result
 }
+
+func index[T Equatable](arr []T, value T) int {
+	for i, v := range arr {
+		if v.eq(value) {
+			return i
+		}
+	}
+	return -1
+}
