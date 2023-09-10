@@ -93,6 +93,12 @@ func (this Set[T]) exclue(other Set[T]) Set[T] {
 	return Set[T]{result}
 }
 
+func (this Set[T]) copy() Set[T] {
+	clone := make(map[T]bool, this.len())
+	maps.Copy(clone, this.data)
+	return Set[T]{clone}
+}
+
 func (this Set[T]) equals(other Set[T]) bool {
 	if this.len() != other.len() {
 		return false
