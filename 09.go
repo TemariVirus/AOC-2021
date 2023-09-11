@@ -9,7 +9,7 @@ func solution_9_1(input string) int {
 	heights := parse_heights(input)
 	sinks := find_sinks(heights)
 
-	sum := aggregate(sinks, 0, func(agg int, p Point) int {
+	sum := aggregate(sinks, 0, func(agg int, p Point, _ int) int {
 		return agg + heights[p.Y][p.X]
 	})
 	return sum + len(sinks)

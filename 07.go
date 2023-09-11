@@ -17,7 +17,7 @@ func solution_7_1(input string) int {
 		return int(math.Abs(float64(left - right)))
 	})
 
-	return aggregate(crabs, 0, func(agg int, value int) int {
+	return aggregate(crabs, 0, func(agg int, value int, _ int) int {
 		return agg + int(math.Abs(float64(value-dest)))
 	})
 }
@@ -36,7 +36,7 @@ func solution_7_2(input string) int {
 		return cost
 	})
 
-	return aggregate(crabs, 0, func(agg int, value int) int {
+	return aggregate(crabs, 0, func(agg int, value int, _ int) int {
 		dist := int(math.Abs(float64(value - dest)))
 		return agg + dist*(dist+1)/2
 	})

@@ -1,9 +1,9 @@
 package main
 
-func aggregate[T any, U any](arr []T, init U, f func(agg U, value T) U) U {
+func aggregate[T any, U any](arr []T, init U, f func(agg U, value T, index int) U) U {
 	result := init
-	for _, v := range arr {
-		result = f(result, v)
+	for i, v := range arr {
+		result = f(result, v, i)
 	}
 	return result
 }
@@ -29,6 +29,15 @@ func count[T any](arr []T, f func(T) bool) int {
 func index[T Equatable](arr []T, value T) int {
 	for i, v := range arr {
 		if v.eq(value) {
+			return i
+		}
+	}
+	return -1
+}
+
+func find[T comparable](arr []T, value T) int {
+	for i, v := range arr {
+		if v == value {
 			return i
 		}
 	}

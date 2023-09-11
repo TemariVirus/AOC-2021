@@ -20,38 +20,38 @@ func makeSetFrom[T comparable](items []T) Set[T] {
 	return set
 }
 
-func (this Set[T]) len() int {
-	return len(this.data)
+func (s Set[T]) len() int {
+	return len(s.data)
 }
 
-func (this Set[T]) toArray() []T {
-	keys := make([]T, 0, len(this.data))
-	for k := range this.data {
+func (s Set[T]) toArray() []T {
+	keys := make([]T, 0, len(s.data))
+	for k := range s.data {
 		keys = append(keys, k)
 	}
 	return keys
 }
 
-func (this Set[T]) add(item T) {
-	this.data[item] = true
+func (s Set[T]) add(item T) {
+	s.data[item] = true
 }
 
-func (this Set[T]) remove(item T) {
-	delete(this.data, item)
+func (s Set[T]) remove(item T) {
+	delete(s.data, item)
 }
 
-func (this Set[T]) contains(item T) bool {
-	_, ok := this.data[item]
+func (s Set[T]) contains(item T) bool {
+	_, ok := s.data[item]
 	return ok
 }
 
-func (this Set[T]) containsSet(set Set[T]) bool {
-	if this.len() < set.len() {
+func (s Set[T]) containsSet(set Set[T]) bool {
+	if s.len() < set.len() {
 		return false
 	}
 
 	for key := range set.data {
-		if !this.contains(key) {
+		if !s.contains(key) {
 			return false
 		}
 	}
@@ -59,9 +59,9 @@ func (this Set[T]) containsSet(set Set[T]) bool {
 	return true
 }
 
-func (this Set[T]) intersection(other Set[T]) Set[T] {
+func (s Set[T]) intersection(other Set[T]) Set[T] {
 	result := make(map[T]bool)
-	smaller := this.data
+	smaller := s.data
 	bigger := other.data
 	if len(bigger) < len(smaller) {
 		smaller, bigger = bigger, smaller
@@ -75,17 +75,17 @@ func (this Set[T]) intersection(other Set[T]) Set[T] {
 	return Set[T]{result}
 }
 
-func (this Set[T]) union(other Set[T]) Set[T] {
+func (s Set[T]) union(other Set[T]) Set[T] {
 	result := make(map[T]bool)
-	maps.Copy(result, this.data)
+	maps.Copy(result, s.data)
 	maps.Copy(result, other.data)
 
 	return Set[T]{result}
 }
 
-func (this Set[T]) exclue(other Set[T]) Set[T] {
+func (s Set[T]) exclue(other Set[T]) Set[T] {
 	result := make(map[T]bool)
-	maps.Copy(result, this.data)
+	maps.Copy(result, s.data)
 	for key := range other.data {
 		delete(result, key)
 	}
@@ -93,18 +93,18 @@ func (this Set[T]) exclue(other Set[T]) Set[T] {
 	return Set[T]{result}
 }
 
-func (this Set[T]) copy() Set[T] {
-	clone := make(map[T]bool, this.len())
-	maps.Copy(clone, this.data)
+func (s Set[T]) copy() Set[T] {
+	clone := make(map[T]bool, s.len())
+	maps.Copy(clone, s.data)
 	return Set[T]{clone}
 }
 
-func (this Set[T]) equals(other Set[T]) bool {
-	if this.len() != other.len() {
+func (s Set[T]) equals(other Set[T]) bool {
+	if s.len() != other.len() {
 		return false
 	}
 
-	for key := range this.data {
+	for key := range s.data {
 		if !other.contains(key) {
 			return false
 		}
@@ -113,16 +113,16 @@ func (this Set[T]) equals(other Set[T]) bool {
 	return true
 }
 
-func (this Set[T]) eq(other Equatable) bool {
+func (s Set[T]) eq(other Equatable) bool {
 	if set, ok := other.(Set[T]); ok {
-		return this.equals(set)
+		return s.equals(set)
 	}
 	return false
 }
 
-func (this Set[T]) ne(other Equatable) bool {
+func (s Set[T]) ne(other Equatable) bool {
 	if set, ok := other.(Set[T]); ok {
-		return !this.equals(set)
+		return !s.equals(set)
 	}
 	return false
 }
