@@ -34,3 +34,13 @@ func index[T Equatable](arr []T, value T) int {
 	}
 	return -1
 }
+
+func filter[T any](arr []T, f func(T) bool) []T {
+	result := make([]T, 0)
+	for _, v := range arr {
+		if f(v) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
