@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func solution_1_1(input string) int {
+func solution1Part1(input string) int {
 	lines := strings.Fields(input)
 	count := 0
 	prev, _ := strconv.Atoi(lines[0])
@@ -19,7 +19,7 @@ func solution_1_1(input string) int {
 	return count
 }
 
-func solution_1_2(input string) int {
+func solution1Part2(input string) int {
 	lines := make([]int, 0)
 	for _, line := range strings.Fields(input) {
 		curr, _ := strconv.Atoi(line)

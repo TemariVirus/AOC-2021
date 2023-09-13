@@ -4,8 +4,8 @@ import (
 	"strings"
 )
 
-func solution_11_1(input string) int {
-	energies := parse_energies(input)
+func solution11Part1(input string) int {
+	energies := parseEnergies(input)
 	count := 0
 	for i := 0; i < 100; i++ {
 		for y, row := range energies {
@@ -19,7 +19,7 @@ func solution_11_1(input string) int {
 			for x, e := range row {
 				if e > 9 {
 					if !flashed.contains(Point{x, y}) {
-						count += octo_flash(energies, Point{x, y}, flashed)
+						count += octoFlash(energies, Point{x, y}, flashed)
 					}
 				}
 			}
@@ -29,7 +29,7 @@ func solution_11_1(input string) int {
 	return count
 }
 
-func parse_energies(input string) [][]int {
+func parseEnergies(input string) [][]int {
 	heights := make([][]int, 0)
 	for _, line := range strings.Split(input, "\n") {
 		heights = append(heights, apply([]rune(line), func(char rune) int {
@@ -39,7 +39,7 @@ func parse_energies(input string) [][]int {
 	return heights
 }
 
-func octo_flash(energies [][]int, pos Point, flashed Set[Point]) int {
+func octoFlash(energies [][]int, pos Point, flashed Set[Point]) int {
 	flashed.add(pos)
 
 	count := 1
@@ -60,7 +60,7 @@ func octo_flash(energies [][]int, pos Point, flashed Set[Point]) int {
 
 			energies[y][x]++
 			if energies[y][x] > 9 {
-				count += octo_flash(energies, Point{x, y}, flashed)
+				count += octoFlash(energies, Point{x, y}, flashed)
 			}
 		}
 	}
@@ -69,8 +69,8 @@ func octo_flash(energies [][]int, pos Point, flashed Set[Point]) int {
 	return count
 }
 
-func solution_11_2(input string) int {
-	energies := parse_energies(input)
+func solution11Part2(input string) int {
+	energies := parseEnergies(input)
 	i := 0
 	count := 0
 	for ; count < len(energies)*len(energies[0]); i++ {
@@ -87,7 +87,7 @@ func solution_11_2(input string) int {
 			for x, e := range row {
 				if e > 9 {
 					if !flashed.contains(Point{x, y}) {
-						count += octo_flash(energies, Point{x, y}, flashed)
+						count += octoFlash(energies, Point{x, y}, flashed)
 					}
 				}
 			}

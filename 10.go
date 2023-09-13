@@ -14,7 +14,7 @@ var paren_map = map[rune]rune{
 var paren_opens = makeSetFrom([]rune{'(', '[', '{', '<'})
 var paren_closes = makeSetFrom([]rune{')', ']', '}', '>'})
 
-func solution_10_1(input string) int {
+func solution10Part1(input string) int {
 	scores := map[rune]int{
 		')': 3,
 		']': 57,
@@ -45,7 +45,7 @@ func solution_10_1(input string) int {
 	return sum
 }
 
-func solution_10_2(input string) int {
+func solution10Part2(input string) int {
 	scores := map[rune]int{
 		')': 1,
 		']': 2,

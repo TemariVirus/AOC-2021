@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func solution_6_1(input string) int {
+func solution6Part1(input string) int {
 	ages := apply(strings.Split(input, ","), func(s string) int {
 		return unwrap(strconv.Atoi(s))
 	})
@@ -24,7 +24,7 @@ func solution_6_1(input string) int {
 	return count
 }
 
-func solution_6_2(input string) int {
+func solution6Part2(input string) int {
 	ages := apply(strings.Split(input, ","), func(s string) int {
 		return unwrap(strconv.Atoi(s))
 	})

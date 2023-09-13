@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func solution_5_1(input string) int {
+func solution5Part1(input string) int {
 	lines := make([][4]int, 0)
 	for _, line := range strings.Split(input, "\n") {
 		parts := strings.Split(line, " -> ")
@@ -57,7 +57,7 @@ func solution_5_1(input string) int {
 	return count
 }
 
-func solution_5_2(input string) int {
+func solution5Part2(input string) int {
 	lines := make([][4]int, 0)
 	for _, line := range strings.Split(input, "\n") {
 		parts := strings.Split(line, " -> ")

@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func parse_input_17(input string) (left, top, right, bottom int) {
+func parseInput17(input string) (left, top, right, bottom int) {
 	input = input[13:]
 	parts := apply(strings.Split(input, ", "), func(value string) []int {
 		value = strings.Split(value, "=")[1]
@@ -16,17 +16,17 @@ func parse_input_17(input string) (left, top, right, bottom int) {
 	return parts[0][0], parts[1][1], parts[0][1], parts[1][0]
 }
 
-func sum_1_to_n(n int) int {
+func sum1ToN(n int) int {
 	return n * (n + 1) / 2
 }
 
-func get_x(x_vel int, t int) int {
+func getX(x_vel int, t int) int {
 	end_vel := max(0, x_vel-t)
-	return sum_1_to_n(x_vel) - sum_1_to_n(end_vel)
+	return sum1ToN(x_vel) - sum1ToN(end_vel)
 }
 
-func solution_17_1(input string) int {
-	left, top, right, bottom := parse_input_17(input)
+func solution17Part1(input string) int {
+	left, top, right, bottom := parseInput17(input)
 
 	for y_vel := -bottom - 1; y_vel >= 0; y_vel-- {
 		orig_y_vel := y_vel
@@ -48,8 +48,8 @@ func solution_17_1(input string) int {
 
 		for _, t := range valid_ts {
 			for i := 0; i <= right; i++ {
-				if x := get_x(i, t); x >= left && x <= right {
-					return sum_1_to_n(orig_y_vel)
+				if x := getX(i, t); x >= left && x <= right {
+					return sum1ToN(orig_y_vel)
 				}
 			}
 		}
@@ -58,12 +58,12 @@ func solution_17_1(input string) int {
 	panic("Target unreachable")
 }
 
-func solution_17_2(input string) int {
-	left, top, right, bottom := parse_input_17(input)
+func solution17Part2(input string) int {
+	left, top, right, bottom := parseInput17(input)
 
 	valid_count := 0
 	counted := makeSet[[2]int](0)
-	for orig_y_vel := abs_int(bottom) - 1; orig_y_vel >= bottom; orig_y_vel-- {
+	for orig_y_vel := absInt(bottom) - 1; orig_y_vel >= bottom; orig_y_vel-- {
 		// Skip past Λ arc to the second point where y == 0
 		t := 0
 		y_vel := orig_y_vel
@@ -86,7 +86,7 @@ func solution_17_2(input string) int {
 					continue
 				}
 
-				if x := get_x(x_vel, t); x >= left && x <= right {
+				if x := getX(x_vel, t); x >= left && x <= right {
 					counted.add([2]int{x_vel, orig_y_vel})
 					valid_count += 1
 				}

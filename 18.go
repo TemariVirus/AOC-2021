@@ -165,7 +165,7 @@ func (n *SFNumber) toString() string {
 	return "[" + n.Left.toString() + "," + n.Right.toString() + "]"
 }
 
-func solution_18_1(input string) int {
+func solution18Part1(input string) int {
 	numbers := apply(strings.Split(input, "\n"), func(s string) *SFNumber {
 		return parseSFNumber(s)
 	})
@@ -176,7 +176,7 @@ func solution_18_1(input string) int {
 	return sum.magnitude()
 }
 
-func solution_18_2(input string) int {
+func solution18Part2(input string) int {
 	numbers := apply(strings.Split(input, "\n"), func(s string) *SFNumber {
 		return parseSFNumber(s)
 	})

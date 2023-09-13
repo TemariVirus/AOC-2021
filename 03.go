@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func solution_3_1(input string) int {
+func solution3Part1(input string) int {
 	words := strings.Fields(input)
 
 	bit_counts := make([]int, len(words[0]))
@@ -29,13 +29,13 @@ func solution_3_1(input string) int {
 	return gamma * elipson
 }
 
-func solution_3_2(input string) int64 {
+func solution3Part2(input string) int64 {
 	words := strings.Fields(input)
 	slices.Sort(words)
 
 	slice := words[:]
 	for i := 0; len(slice) > 1; i++ {
-		split := find_split(slice, i)
+		split := findSplit(slice, i)
 		if split > len(slice)/2 {
 			slice = slice[:split]
 		} else {
@@ -46,7 +46,7 @@ func solution_3_2(input string) int64 {
 
 	slice = words[:]
 	for i := 0; len(slice) > 1; i++ {
-		split := find_split(slice, i)
+		split := findSplit(slice, i)
 		if split > len(slice)/2 {
 			slice = slice[split:]
 		} else {
@@ -59,7 +59,7 @@ func solution_3_2(input string) int64 {
 }
 
 // Binary search
-func find_split(nums []string, index int) int {
+func findSplit(nums []string, index int) int {
 	left, right := 0, len(nums)-1
 	for left < right {
 		mid := (left + right) / 2

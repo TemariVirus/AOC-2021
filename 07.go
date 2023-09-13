@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-func solution_7_1(input string) int {
+func solution7Part1(input string) int {
 	crabs := apply(strings.Split(input, ","), func(s string) int {
 		return unwrap(strconv.Atoi(s))
 	})
 
-	dest := quad_curve_binary_search(crabs, func(crabs []int, idx int) int {
+	dest := quadCurveBinarySearch(crabs, func(crabs []int, idx int) int {
 		left := count(crabs, func(value int) bool { return value <= idx })
 		right := count(crabs, func(value int) bool { return value >= idx })
 		return int(math.Abs(float64(left - right)))
@@ -22,12 +22,12 @@ func solution_7_1(input string) int {
 	})
 }
 
-func solution_7_2(input string) int {
+func solution7Part2(input string) int {
 	crabs := apply(strings.Split(input, ","), func(s string) int {
 		return unwrap(strconv.Atoi(s))
 	})
 
-	dest := quad_curve_binary_search(crabs, func(crabs []int, dest int) int {
+	dest := quadCurveBinarySearch(crabs, func(crabs []int, dest int) int {
 		cost := 0
 		for _, crab := range crabs {
 			dist := int(math.Abs(float64(crab - dest)))
@@ -42,7 +42,7 @@ func solution_7_2(input string) int {
 	})
 }
 
-func quad_curve_binary_search(arr []int, cost_func func(crabs []int, dest int) int) int {
+func quadCurveBinarySearch(arr []int, cost_func func(crabs []int, dest int) int) int {
 	left := arr[0]
 	right := arr[0]
 	for _, crab := range arr {

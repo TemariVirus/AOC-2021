@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func parse_input_15(input string) [][]int {
+func parseInput15(input string) [][]int {
 	result := [][]int{}
 	for _, line := range strings.Split(input, "\n") {
 		line_risks := []int{}
@@ -17,7 +17,7 @@ func parse_input_15(input string) [][]int {
 }
 
 // A* algorithm
-func least_risk_path(
+func leastRiskPath(
 	start Point,
 	target Point,
 	risk [][]int,
@@ -26,7 +26,7 @@ func least_risk_path(
 	closed_set := makeSet[Point](0)
 	came_froms := map[Point]Point{}
 	g_scores := map[Point]int{start: 0}
-	f_scores := map[Point]int{start: g_scores[start] + taxicab_distance(start, target)}
+	f_scores := map[Point]int{start: g_scores[start] + taxicabDistance(start, target)}
 	for len(open_set) > 0 {
 		curr_i := aggregate(open_set, 0, func(agg int, value Point, index int) int {
 			if f_scores[open_set[index]] < f_scores[open_set[agg]] {
@@ -73,7 +73,7 @@ func least_risk_path(
 			if g_score, ok := g_scores[neighbor]; !ok || tentative_g_score < g_score {
 				came_froms[neighbor] = curr
 				g_scores[neighbor] = tentative_g_score
-				f_scores[neighbor] = g_scores[neighbor] + taxicab_distance(neighbor, target)
+				f_scores[neighbor] = g_scores[neighbor] + taxicabDistance(neighbor, target)
 			}
 		}
 	}
@@ -81,16 +81,16 @@ func least_risk_path(
 	return []Point{}
 }
 
-func solution_15_1(input string) int {
-	risks := parse_input_15(input)
-	path := least_risk_path(Point{0, 0}, Point{len(risks[0]) - 1, len(risks) - 1}, risks)
+func solution15Part1(input string) int {
+	risks := parseInput15(input)
+	path := leastRiskPath(Point{0, 0}, Point{len(risks[0]) - 1, len(risks) - 1}, risks)
 	return aggregate(path[1:], 0, func(agg int, value Point, _ int) int {
 		return agg + risks[value.Y][value.X]
 	})
 }
 
-func solution_15_2(input string) int {
-	risks_small := parse_input_15(input)
+func solution15Part2(input string) int {
+	risks_small := parseInput15(input)
 
 	risks := make([][]int, len(risks_small)*5)
 	for i := 0; i < len(risks_small)*5; i++ {
@@ -105,7 +105,7 @@ func solution_15_2(input string) int {
 		}
 	}
 
-	path := least_risk_path(Point{0, 0}, Point{len(risks[0]) - 1, len(risks) - 1}, risks)
+	path := leastRiskPath(Point{0, 0}, Point{len(risks[0]) - 1, len(risks) - 1}, risks)
 	return aggregate(path[1:], 0, func(agg int, value Point, _ int) int {
 		return agg + risks[value.Y][value.X]
 	})

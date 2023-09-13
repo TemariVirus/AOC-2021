@@ -11,7 +11,7 @@ type Fold struct {
 	Pos        int
 }
 
-func solution_13_1(input string) int {
+func solution13Part1(input string) int {
 	parts := strings.Split(input, "\n\n")
 	dots := parseDots(parts[0])
 	folds := parseFolds(parts[1])
@@ -76,7 +76,7 @@ func fold(dots Set[Point], fold Fold) Set[Point] {
 	return makeSetFrom(still_dots)
 }
 
-func solution_13_2(input string) string {
+func solution13Part2(input string) string {
 	parts := strings.Split(input, "\n\n")
 	dots := parseDots(parts[0])
 	for _, f := range parseFolds(parts[1]) {

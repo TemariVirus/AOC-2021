@@ -11,12 +11,12 @@ type Graph map[Node][]Node
 const START_NODE Node = "start"
 const END_NODE Node = "end"
 
-func solution_12_1(input string) int {
-	graph := parse_graph(strings.Split(input, "\n"))
-	return count_paths(START_NODE, graph, makeSet[Node](0), true)
+func solution12Part1(input string) int {
+	graph := parseGraph(strings.Split(input, "\n"))
+	return countPaths(START_NODE, graph, makeSet[Node](0), true)
 }
 
-func parse_graph(edges []string) Graph {
+func parseGraph(edges []string) Graph {
 	graph := make(Graph, 0)
 	for _, edge := range edges {
 		nodes := strings.Split(edge, "-")
@@ -28,7 +28,7 @@ func parse_graph(edges []string) Graph {
 	return graph
 }
 
-func count_paths(curr Node, graph Graph, visited Set[Node], visited_extra bool) int {
+func countPaths(curr Node, graph Graph, visited Set[Node], visited_extra bool) int {
 	if unicode.IsLower([]rune(curr)[0]) {
 		visited.add(curr)
 	}
@@ -41,18 +41,18 @@ func count_paths(curr Node, graph Graph, visited Set[Node], visited_extra bool) 
 		}
 		if visited.contains(n) {
 			if !visited_extra && n != START_NODE {
-				count += count_paths(n, graph, visited.copy(), true)
+				count += countPaths(n, graph, visited.copy(), true)
 			}
 			continue
 		}
 
-		count += count_paths(n, graph, visited.copy(), visited_extra)
+		count += countPaths(n, graph, visited.copy(), visited_extra)
 	}
 
 	return count
 }
 
-func solution_12_2(input string) int {
-	graph := parse_graph(strings.Split(input, "\n"))
-	return count_paths(START_NODE, graph, makeSet[Node](0), false)
+func solution12Part2(input string) int {
+	graph := parseGraph(strings.Split(input, "\n"))
+	return countPaths(START_NODE, graph, makeSet[Node](0), false)
 }

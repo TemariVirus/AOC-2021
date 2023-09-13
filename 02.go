@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func solution_2_1(input string) int {
+func solution2Part1(input string) int {
 	words := strings.Fields(input)
 	x, z := 0, 0
 	for i := 0; i < len(words); i += 2 {
@@ -22,7 +22,7 @@ func solution_2_1(input string) int {
 	return x * z
 }
 
-func solution_2_2(input string) int {
+func solution2Part2(input string) int {
 	words := strings.Fields(input)
 	x, depth, aim := 0, 0, 0
 	for i := 0; i < len(words); i += 2 {

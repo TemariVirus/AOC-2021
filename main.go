@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	input := string(unwrap(os.ReadFile("18.txt")))
+	input := string(unwrap(os.ReadFile("19.txt")))
 
 	start := time.Now()
-	fmt.Println(solution_18_2(input))
+	fmt.Println(solution19Part1(input))
 	fmt.Println("Time taken:", time.Since(start))
 }
 
@@ -21,7 +21,7 @@ func unwrap[T any](value T, err error) T {
 	return value
 }
 
-func abs_int(x int) int {
+func absInt(x int) int {
 	if x < 0 {
 		return -x
 	}

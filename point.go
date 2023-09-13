@@ -4,6 +4,6 @@ type Point struct {
 	X, Y int
 }
 
-func taxicab_distance(a, b Point) int {
-	return abs_int(a.X-b.X) + abs_int(a.Y-b.Y)
+func taxicabDistance(a, b Point) int {
+	return absInt(a.X-b.X) + absInt(a.Y-b.Y)
 }

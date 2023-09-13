@@ -6,7 +6,7 @@ import (
 
 type Digit = Set[rune]
 
-func solution_8_1(input string) int {
+func solution8Part1(input string) int {
 	count := 0
 	for _, line := range strings.Split(input, "\n") {
 		output := strings.Split(line, " | ")[1]
@@ -20,7 +20,7 @@ func solution_8_1(input string) int {
 	return count
 }
 
-func solution_8_2(input string) int {
+func solution8Part2(input string) int {
 	sum := 0
 	for _, line := range strings.Split(input, "\n") {
 		parts := strings.Split(line, " | ")

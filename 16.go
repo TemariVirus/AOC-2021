@@ -1,6 +1,6 @@
 package main
 
-func parse_input_16(input string) BitArray {
+func parseInput16(input string) BitArray {
 	result := makeBitArray(0, len(input)*4)
 	for _, c := range input {
 		var value int
@@ -19,7 +19,7 @@ func parse_input_16(input string) BitArray {
 	return result
 }
 
-func show_bits(bits BitArray) {
+func showBits(bits BitArray) {
 	println(string(apply(bits.to_slice(), func(value bool) rune {
 		if value {
 			return '1'
@@ -28,16 +28,16 @@ func show_bits(bits BitArray) {
 	})))
 }
 
-func read_BITS_packet(bits BitArray, i *int) (int, int) {
+func readBitsPacket(bits BitArray, i *int) (int, int) {
 	type_id := bits.get_range(*i+3, *i+6)
 	if type_id == 4 {
-		return read_BITS_literal(bits, i)
+		return readBitsLiteral(bits, i)
 	} else {
-		return read_BITS_operator(bits, i)
+		return readBitsOperator(bits, i)
 	}
 }
 
-func read_BITS_literal(bits BitArray, i *int) (int, int) {
+func readBitsLiteral(bits BitArray, i *int) (int, int) {
 	version := bits.get_range(*i, *i+3)
 
 	result := 0
@@ -54,15 +54,15 @@ func read_BITS_literal(bits BitArray, i *int) (int, int) {
 	return result, int(version)
 }
 
-func read_BITS_operator(bits BitArray, i *int) (int, int) {
+func readBitsOperator(bits BitArray, i *int) (int, int) {
 	if bits.get(*i + 6) {
-		return read_BITS_operator_by_subpackets(bits, i)
+		return readBitsOperatorBySubpackets(bits, i)
 	} else {
-		return read_BITS_operator_by_length(bits, i)
+		return readBitsOperatorByLength(bits, i)
 	}
 }
 
-func read_BITS_operator_by_length(bits BitArray, i *int) (int, int) {
+func readBitsOperatorByLength(bits BitArray, i *int) (int, int) {
 	version_sum := int(bits.get_range(*i, *i+3))
 	type_id := int(bits.get_range(*i+3, *i+6))
 	*i += 7
@@ -72,15 +72,15 @@ func read_BITS_operator_by_length(bits BitArray, i *int) (int, int) {
 	old_i := *i
 	packet_values := make([]int, 0)
 	for *i < old_i+int(length) {
-		value, version := read_BITS_packet(bits, i)
+		value, version := readBitsPacket(bits, i)
 		packet_values = append(packet_values, value)
 		version_sum += version
 	}
 
-	return eval_BITS_operator(type_id, packet_values), version_sum
+	return evalBitsOperator(type_id, packet_values), version_sum
 }
 
-func read_BITS_operator_by_subpackets(bits BitArray, i *int) (int, int) {
+func readBitsOperatorBySubpackets(bits BitArray, i *int) (int, int) {
 	version_sum := int(bits.get_range(*i, *i+3))
 	type_id := int(bits.get_range(*i+3, *i+6))
 	*i += 7
@@ -89,15 +89,15 @@ func read_BITS_operator_by_subpackets(bits BitArray, i *int) (int, int) {
 
 	packet_values := make([]int, 0, packets)
 	for j := 0; j < int(packets); j++ {
-		value, version := read_BITS_packet(bits, i)
+		value, version := readBitsPacket(bits, i)
 		packet_values = append(packet_values, value)
 		version_sum += version
 	}
 
-	return eval_BITS_operator(type_id, packet_values), version_sum
+	return evalBitsOperator(type_id, packet_values), version_sum
 }
 
-func eval_BITS_operator(type_id int, values []int) int {
+func evalBitsOperator(type_id int, values []int) int {
 	switch type_id {
 	case 0:
 		return aggregate(values[1:], values[0], func(agg, value, _ int) int {
@@ -135,16 +135,16 @@ func eval_BITS_operator(type_id int, values []int) int {
 	panic("invalid operator")
 }
 
-func solution_16_1(input string) int {
-	bits := parse_input_16(input)
+func solution16Part1(input string) int {
+	bits := parseInput16(input)
 	i := 0
-	_, version_sum := read_BITS_packet(bits, &i)
+	_, version_sum := readBitsPacket(bits, &i)
 	return version_sum
 }
 
-func solution_16_2(input string) int {
-	bits := parse_input_16(input)
+func solution16Part2(input string) int {
+	bits := parseInput16(input)
 	i := 0
-	value, _ := read_BITS_packet(bits, &i)
+	value, _ := readBitsPacket(bits, &i)
 	return value
 }

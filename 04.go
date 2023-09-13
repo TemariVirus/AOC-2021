@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func parse_input(input string) ([]int, [][25]int) {
+func parseInput4(input string) ([]int, [][25]int) {
 	parts := strings.Split(input, "\n\n")
 
 	numbers := make([]int, 0)
@@ -25,8 +25,8 @@ func parse_input(input string) ([]int, [][25]int) {
 	return numbers, boards
 }
 
-func solution_4_1(input string) int {
-	numbers, boards := parse_input(input)
+func solution4Part1(input string) int {
+	numbers, boards := parseInput4(input)
 
 	var win_board [25]int
 	var draws int
@@ -60,8 +60,8 @@ winner_found:
 	return sum * numbers[draws-1]
 }
 
-func solution_4_2(input string) int {
-	numbers, boards := parse_input(input)
+func solution4Part2(input string) int {
+	numbers, boards := parseInput4(input)
 
 	var last_board [25]int
 	var draws int
