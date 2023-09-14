@@ -44,7 +44,7 @@ func solution8Part2(input string) int {
 			}
 		}
 		for _, d := range digits {
-			if d.len() == 5 && d.intersection(found_digits[4]).len() == 2 {
+			if d.len() == 5 && d.intersect(found_digits[4]).len() == 2 {
 				found_digits[2] = d
 			}
 			if d.len() == 5 && d.containsSet(found_digits[7]) {
@@ -59,12 +59,12 @@ func solution8Part2(input string) int {
 			}
 		}
 		for _, d := range digits {
-			if d.len() == 5 && d.intersection(found_digits[2]).len() == 3 {
+			if d.len() == 5 && d.intersect(found_digits[2]).len() == 3 {
 				found_digits[5] = d
 			}
 		}
 		for _, d := range digits {
-			if d.len() == 6 && d.intersection(found_digits[5]).len() == 4 {
+			if d.len() == 6 && d.intersect(found_digits[5]).len() == 4 {
 				found_digits[0] = d
 			}
 		}

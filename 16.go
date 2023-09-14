@@ -20,7 +20,7 @@ func parseInput16(input string) BitArray {
 }
 
 func showBits(bits BitArray) {
-	println(string(apply(bits.to_slice(), func(value bool) rune {
+	println(string(apply(bits.toSlice(), func(value bool) rune {
 		if value {
 			return '1'
 		}
@@ -29,7 +29,7 @@ func showBits(bits BitArray) {
 }
 
 func readBitsPacket(bits BitArray, i *int) (int, int) {
-	type_id := bits.get_range(*i+3, *i+6)
+	type_id := bits.getRange(*i+3, *i+6)
 	if type_id == 4 {
 		return readBitsLiteral(bits, i)
 	} else {
@@ -38,12 +38,12 @@ func readBitsPacket(bits BitArray, i *int) (int, int) {
 }
 
 func readBitsLiteral(bits BitArray, i *int) (int, int) {
-	version := bits.get_range(*i, *i+3)
+	version := bits.getRange(*i, *i+3)
 
 	result := 0
-	for *i += 6; *i < bits.length; {
+	for *i += 6; *i < bits.Length; {
 		stop := !bits.get(*i)
-		value := bits.get_range(*i+1, *i+5)
+		value := bits.getRange(*i+1, *i+5)
 		*i += 5
 		result <<= 4
 		result |= int(value)
@@ -63,10 +63,10 @@ func readBitsOperator(bits BitArray, i *int) (int, int) {
 }
 
 func readBitsOperatorByLength(bits BitArray, i *int) (int, int) {
-	version_sum := int(bits.get_range(*i, *i+3))
-	type_id := int(bits.get_range(*i+3, *i+6))
+	version_sum := int(bits.getRange(*i, *i+3))
+	type_id := int(bits.getRange(*i+3, *i+6))
 	*i += 7
-	length := bits.get_range(*i, *i+15)
+	length := bits.getRange(*i, *i+15)
 	*i += 15
 
 	old_i := *i
@@ -81,10 +81,10 @@ func readBitsOperatorByLength(bits BitArray, i *int) (int, int) {
 }
 
 func readBitsOperatorBySubpackets(bits BitArray, i *int) (int, int) {
-	version_sum := int(bits.get_range(*i, *i+3))
-	type_id := int(bits.get_range(*i+3, *i+6))
+	version_sum := int(bits.getRange(*i, *i+3))
+	type_id := int(bits.getRange(*i+3, *i+6))
 	*i += 7
-	packets := bits.get_range(*i, *i+11)
+	packets := bits.getRange(*i, *i+11)
 	*i += 11
 
 	packet_values := make([]int, 0, packets)

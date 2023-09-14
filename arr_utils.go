@@ -16,6 +16,24 @@ func apply[T any, U any](arr []T, f func(value T) U) []U {
 	return result
 }
 
+func all[T any](arr []T, f func(value T) bool) bool {
+	for _, v := range arr {
+		if !f(v) {
+			return false
+		}
+	}
+	return true
+}
+
+func anyTrue[T any](arr []T, f func(value T) bool) bool {
+	for _, v := range arr {
+		if f(v) {
+			return true
+		}
+	}
+	return false
+}
+
 func count[T any](arr []T, f func(value T) bool) int {
 	result := 0
 	for _, v := range arr {
@@ -50,6 +68,17 @@ func filter[T any](arr []T, f func(T) bool) []T {
 		if f(v) {
 			result = append(result, v)
 		}
+	}
+	return result
+}
+
+func join[T any](arr []T, sep string, f func(T) string) string {
+	result := ""
+	for i, v := range arr {
+		if i > 0 {
+			result += sep
+		}
+		result += f(v)
 	}
 	return result
 }

@@ -1,7 +1,7 @@
 package main
 
 type BitArray struct {
-	length int
+	Length int
 	words  []uint64
 }
 
@@ -16,7 +16,7 @@ func (b *BitArray) get(index int) bool {
 	return (b.words[index/64]>>(index%64))&1 == 1
 }
 
-func (b *BitArray) get_range(start, end int) uint64 {
+func (b *BitArray) getRange(start, end int) uint64 {
 	start_word := start / 64
 	end_word := (end - 1) / 64
 	start_bit := start % 64
@@ -48,22 +48,28 @@ func (b *BitArray) unset(index int) {
 }
 
 func (b *BitArray) append(set bool) {
-	index := b.length
-	if b.length/64 >= len(b.words) {
-		b.words = append(b.words, make([]uint64, len(b.words))...)
+	index := b.Length
+	if b.Length/64 >= len(b.words) {
+		b.words = append(b.words, make([]uint64, max(1, len(b.words)))...)
 	}
 	if set {
 		b.set(index)
 	} else {
 		b.unset(index)
 	}
-	b.length++
+	b.Length++
 }
 
-func (b *BitArray) to_slice() []bool {
-	result := make([]bool, b.length)
-	for i := 0; i < b.length; i++ {
+func (b *BitArray) toSlice() []bool {
+	result := make([]bool, b.Length)
+	for i := 0; i < b.Length; i++ {
 		result[i] = b.get(i)
 	}
 	return result
+}
+
+func (b *BitArray) setCount() int {
+	return aggregate(b.words, 0, func(agg int, value uint64, index int) int {
+		return agg + popcount(value)
+	})
 }

@@ -59,7 +59,7 @@ func (s Set[T]) containsSet(set Set[T]) bool {
 	return true
 }
 
-func (s Set[T]) intersection(other Set[T]) Set[T] {
+func (s Set[T]) intersect(other Set[T]) Set[T] {
 	result := make(map[T]bool)
 	smaller := s.data
 	bigger := other.data
