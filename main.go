@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	input := string(unwrap(os.ReadFile("23.txt")))
+	input := string(unwrap(os.ReadFile("24.txt")))
 
 	start := time.Now()
-	fmt.Println(solution23Part2(input))
+	fmt.Println(solution24Part2(input))
 	fmt.Println("Time taken:", time.Since(start))
 }
 
