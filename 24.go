@@ -26,7 +26,7 @@ func monadDigitOp(input int, z int, parameters [2]int) int {
 	return z
 }
 
-func findModelNumberRecurse(z int, params [][2]int, index int, agg int64, findHighest bool) (number int64, found bool) {
+func findModelNumber(z int, params [][2]int, index int, agg int64, findHighest bool) (number int64, found bool) {
 	if index == len(params) {
 		if z == 0 {
 			return agg, true
@@ -50,7 +50,7 @@ func findModelNumberRecurse(z int, params [][2]int, index int, agg int64, findHi
 		// When first parameters is < 0, z is divided so let's make sure we don't hit the if() that multiplies z later
 		if p[0] > 0 || z%26 == i-p[0] {
 			newZ := monadDigitOp(i, z, p)
-			result, found := findModelNumberRecurse(newZ, params, index+1, agg*10+int64(i), findHighest)
+			result, found := findModelNumber(newZ, params, index+1, agg*10+int64(i), findHighest)
 			if found {
 				return result, true
 			}
@@ -73,7 +73,7 @@ func parseInput24(input string) [][2]int {
 }
 
 func solution24Part1(input string) int64 {
-	number, found := findModelNumberRecurse(0, parseInput24(input), 0, 0, true)
+	number, found := findModelNumber(0, parseInput24(input), 0, 0, true)
 	if !found {
 		panic("No solution found")
 	}
@@ -81,7 +81,7 @@ func solution24Part1(input string) int64 {
 }
 
 func solution24Part2(input string) int64 {
-	number, found := findModelNumberRecurse(0, parseInput24(input), 0, 0, false)
+	number, found := findModelNumber(0, parseInput24(input), 0, 0, false)
 	if !found {
 		panic("No solution found")
 	}
